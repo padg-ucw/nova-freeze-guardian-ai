@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Thermometer, 
@@ -21,6 +20,8 @@ import { ThemeProvider } from '../contexts/ThemeContext';
 import { LanguageProvider, useLanguage } from '../contexts/LanguageContext';
 import { TemperatureReading, KPIData } from '../types/temperature';
 import { detectAnomalies, calculateKPIs, generateDemandForecast } from '../utils/anomalyDetection';
+import { DemoControls } from '../components/DemoControls';
+import { useDynamicDemo } from '../hooks/useDynamicDemo';
 
 const DashboardContent: React.FC = () => {
   const { t } = useLanguage();
@@ -30,6 +31,25 @@ const DashboardContent: React.FC = () => {
   const anomalies = detectAnomalies(temperatureData);
   const kpiData = calculateKPIs(anomalies);
   const demandForecast = generateDemandForecast(temperatureData);
+
+  // Dynamic demo hook
+  const {
+    isPlaying,
+    currentIndex,
+    displayData,
+    displayDemandData,
+    startDemo,
+    stopDemo,
+    resetDemo,
+    progress
+  } = useDynamicDemo({
+    fullData: temperatureData,
+    demandData: demandForecast
+  });
+
+  // Use demo data when playing, otherwise use full data
+  const chartTemperatureData = isPlaying && displayData.length > 0 ? displayData : temperatureData;
+  const chartDemandData = isPlaying && displayDemandData.length > 0 ? displayDemandData : demandForecast;
 
   const handleDataLoaded = (data: TemperatureReading[]) => {
     setTemperatureData(data);
@@ -57,6 +77,16 @@ const DashboardContent: React.FC = () => {
         {/* Dashboard Content */}
         {temperatureData.length > 0 ? (
           <>
+            {/* Demo Controls */}
+            <DemoControls
+              isPlaying={isPlaying}
+              progress={progress}
+              currentIndex={currentIndex}
+              onStart={startDemo}
+              onStop={stopDemo}
+              onReset={resetDemo}
+            />
+
             {/* KPI Dashboard */}
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-foreground">
@@ -104,13 +134,18 @@ const DashboardContent: React.FC = () => {
               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                 <h2 className="text-2xl font-bold text-foreground">
                   Analytics Dashboard
+                  {isPlaying && (
+                    <span className="ml-2 text-sm text-blue-400 font-normal">
+                      (Live Demo - {currentIndex}/100 points)
+                    </span>
+                  )}
                 </h2>
                 <ExportButtons kpiData={kpiData} temperatureData={temperatureData} />
               </div>
 
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                <TemperatureChart data={temperatureData} />
-                <DemandForecastChart data={demandForecast} />
+                <TemperatureChart data={chartTemperatureData} />
+                <DemandForecastChart data={chartDemandData} />
               </div>
             </div>
 
