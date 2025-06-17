@@ -71,7 +71,7 @@ export const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
                 strokeDasharray="5 5"
                 label={{ 
                   value: "Threshold (8°C)", 
-                  position: "topLeft",
+                  position: "top",
                   style: { fill: '#dc2626', fontSize: '12px' }
                 }}
               />
