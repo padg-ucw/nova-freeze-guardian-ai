@@ -3,20 +3,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Professional design system with somber colors */
 
 @layer base {
   :root {
     --background: 248 250 252;
-    --foreground: 15 23 42;
+    --foreground: 30 41 59;
 
     --card: 255 255 255;
-    --card-foreground: 15 23 42;
+    --card-foreground: 30 41 59;
 
     --popover: 255 255 255;
-    --popover-foreground: 15 23 42;
+    --popover-foreground: 30 41 59;
 
-    --primary: 14 165 233;
+    --primary: 37 99 235;
     --primary-foreground: 248 250 252;
 
     --secondary: 241 245 249;
@@ -28,62 +28,62 @@
     --accent: 241 245 249;
     --accent-foreground: 51 65 85;
 
-    --destructive: 239 68 68;
+    --destructive: 220 38 38;
     --destructive-foreground: 248 250 252;
 
-    --border: 226 232 240;
-    --input: 226 232 240;
-    --ring: 14 165 233;
+    --border: 203 213 225;
+    --input: 203 213 225;
+    --ring: 37 99 235;
 
     --radius: 0.5rem;
 
     --sidebar-background: 248 250 252;
     --sidebar-foreground: 51 65 85;
-    --sidebar-primary: 14 165 233;
+    --sidebar-primary: 37 99 235;
     --sidebar-primary-foreground: 248 250 252;
     --sidebar-accent: 241 245 249;
     --sidebar-accent-foreground: 51 65 85;
-    --sidebar-border: 226 232 240;
-    --sidebar-ring: 14 165 233;
+    --sidebar-border: 203 213 225;
+    --sidebar-ring: 37 99 235;
   }
 
   .dark {
-    --background: 2 6 23;
-    --foreground: 248 250 252;
+    --background: 15 23 42;
+    --foreground: 226 232 240;
 
-    --card: 15 23 42;
-    --card-foreground: 248 250 252;
+    --card: 30 41 59;
+    --card-foreground: 226 232 240;
 
-    --popover: 15 23 42;
-    --popover-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 226 232 240;
 
-    --primary: 56 189 248;
-    --primary-foreground: 2 6 23;
+    --primary: 59 130 246;
+    --primary-foreground: 15 23 42;
 
-    --secondary: 30 41 59;
-    --secondary-foreground: 226 232 240;
+    --secondary: 51 65 85;
+    --secondary-foreground: 203 213 225;
 
-    --muted: 30 41 59;
+    --muted: 51 65 85;
     --muted-foreground: 148 163 184;
 
-    --accent: 30 41 59;
-    --accent-foreground: 226 232 240;
+    --accent: 51 65 85;
+    --accent-foreground: 203 213 225;
 
-    --destructive: 220 38 38;
-    --destructive-foreground: 248 250 252;
+    --destructive: 185 28 28;
+    --destructive-foreground: 226 232 240;
 
-    --border: 30 41 59;
-    --input: 30 41 59;
-    --ring: 56 189 248;
+    --border: 71 85 105;
+    --input: 71 85 105;
+    --ring: 59 130 246;
 
-    --sidebar-background: 2 6 23;
-    --sidebar-foreground: 226 232 240;
-    --sidebar-primary: 56 189 248;
-    --sidebar-primary-foreground: 2 6 23;
-    --sidebar-accent: 30 41 59;
-    --sidebar-accent-foreground: 226 232 240;
-    --sidebar-border: 30 41 59;
-    --sidebar-ring: 56 189 248;
+    --sidebar-background: 15 23 42;
+    --sidebar-foreground: 203 213 225;
+    --sidebar-primary: 59 130 246;
+    --sidebar-primary-foreground: 15 23 42;
+    --sidebar-accent: 51 65 85;
+    --sidebar-accent-foreground: 203 213 225;
+    --sidebar-border: 71 85 105;
+    --sidebar-ring: 59 130 246;
   }
 }
 
@@ -94,23 +94,49 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%, 
+      rgb(241, 245, 249) 50%,
+      rgb(226, 232, 240) 100%);
     min-height: 100vh;
   }
 
   .dark body {
-    background: linear-gradient(135deg, hsl(var(--background)) 0%, rgb(15, 23, 42) 100%);
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%, 
+      rgb(30, 41, 59) 50%,
+      rgb(51, 65, 85) 100%);
   }
 
   .glassmorphism {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(203, 213, 225, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
   }
 
   .dark .glassmorphism {
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(56, 189, 248, 0.18);
+    background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Professional animations */
+@layer utilities {
+  .animate-chart-entry {
+    animation: chartEntry 1.5s ease-out;
+  }
+  
+  @keyframes chartEntry {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 }
